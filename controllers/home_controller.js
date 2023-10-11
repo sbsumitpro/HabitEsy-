@@ -19,3 +19,11 @@ module.exports.create = async(req,res)=>{
         console.log("----Error", err);
     }
 }
+
+module.exports.toggleStatus = async(req,res)=>{
+    try{
+        console.log("sdsd")
+    }catch{
+        console.log("----Error", err);
+    }
+}

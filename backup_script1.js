@@ -30,6 +30,7 @@ const renderCalendar = () => {
     // object_id = habbitID.attr("object_id");
     habbitIDs.forEach((habbitID)=>{
         habbit_id = habbitID.getAttribute("data_id")
+    })
 
     for (let i = firstWeekDate; i <= firstWeekDate+6; i++) {
         // console.log(date.getDate(), new Date().getMonth(), new Date().getFullYear())
@@ -45,14 +46,12 @@ const renderCalendar = () => {
         
         liTag += `<li class="${isToday}" onclick="fetchParentID(this)"> <span id="${id}">${x}</span>
         <div>
-        <a href="/habbits/status/toggle?date=${id}&status=1& habbit_id=${habbit_id}">
+        <a href="/habbits/status/toggle?date=${id}&status=1">
         <img onclick="fun(this)" src="https://cdn-icons-png.flaticon.com/128/11512/11512309.png" class="status-icon" id=${1000000+Math.floor(Math.random()*1000000)} height="20px" width="20px" alt="cross"/>
         </a>
         <div>
         </li>`;
     }
-    })
-
     currentDate.innerText = `${months[currMonth]} ${currYear}`;
     for(let i=0;i<daysTag.length;i++){
         daysTag[i].innerHTML = liTag;

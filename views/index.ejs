@@ -86,16 +86,17 @@
                             <li>Fri</li>
                             <li>Sat</li>
                           </ul>
-                          <%for(i of habbits){%>
+                          <%for(i=0;i< habbits.length;i++){%>
                             <hr>
-                            <div class="habbit-div" data_id="<%=i.sl%>">
+                            <div class="habbit-div" id="<%=i+1%>"" data_id="<%=habbits[i].id%>">
                               <div class="w-100 d-flex justify-content-between" >
-                                <h5 ><%=i.title%></h5>
+                                <h5 ><%=habbits[i].title%></h5>
                                 <a href=""><img src="https://cdn-icons-png.flaticon.com/128/6861/6861362.png" height="15px" width="15px" alt=""></a>
                               </div>
-                              <ul class="days"></ul>
+                              <ul class="days" ></ul>
                             </div>
                           <%}%>
+
                         </div>
                       </div>
                     </div>
