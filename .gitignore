@@ -1,2 +1,5 @@
 node_modules
 .env
+backup_index.ejs
+backup_script1.js
+backup_Script.js
