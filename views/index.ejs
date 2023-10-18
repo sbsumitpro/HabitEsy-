@@ -15,7 +15,7 @@
 </head>
 <body>
     <section class="vh-100 vw-100 gradient-custom">
-      <h1 class="m-4" ">Habitesy </h1>
+      <h1 class="page-heading" "><img src="https://cdn-icons-png.flaticon.com/128/3588/3588658.png" height="60px" alt=""> Habitesy </h1>
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-start">
             <div class="col col-xl-10">
@@ -25,7 +25,7 @@
       
                   <form class="d-flex justify-content-center align-items-center mb-4" action="/habbits/create" method="post">
                     <div class="form-outline d-flex flex-row justify-content-around w-100">
-                      <input type="text" name="name" class="form-control inp1" placeholder="Add a new habbit"/>
+                      <input type="text" name="name" class="form-control inp1" placeholder="Add a new habbit" autocomplete="off"/>
                       <input type="time" id="appt" name="time" class="form-control inp2"  placeholder="Time">
                       <input type="number" name="goal" class="form-control inp3" placeholder="Weekly goal" max="7"/>
                     </div>
@@ -54,11 +54,11 @@
                           <li class="list-group-item d-flex align-items-center justify-content-between border-0 mb-2 rounded"
                             style="background-color: #f4f6f7;">
                             <div class="w-40 d-flex justify-content-between m-3" >
-                              <span class="mx-3"><%=habbits.indexOf(i)+1%></span>
-                              <span><%=i.title%></span>
+                              <span class="mx-3 h5"><%=habbits.indexOf(i)+1%>.</span>
+                              <span class="h5"><%=i.title%></span>
                             </div>
-                            <span><%=i.time%></span>
-                            <span><span class="statCount">0</span>/<%=i.goal%></span>
+                            <span>Execute Time: <%=i.time%></span>
+                            <span><span>Streak: </span><span class="statCount">0</span>/<%=i.goal%></span>
                             <a href="habbits/destroy?id=<%=i.id%>"><img src="https://cdn-icons-png.flaticon.com/128/10147/10147931.png" height="20px" width="20px" alt=""></a>
 
                           </li>
@@ -90,7 +90,7 @@
                             <hr>
                             <div class="habbit-div" id="<%=i+1%>" data_id="<%=habbits[i].id%>">
                               <div class="w-100 d-flex justify-content-between" >
-                                <h5 ><%=habbits[i].title%></h5>
+                                <h5 class="hb_title"><%=habbits[i].title%></h5>
                                 <a href="habbits/destroy?id=<%=habbits[i].id%>">
                                    <img src="https://cdn-icons-png.flaticon.com/128/6861/6861362.png" height="15px" width="15px" alt="delete-btn">
                                   </a>

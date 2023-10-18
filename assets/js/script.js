@@ -8,7 +8,6 @@ let date = new Date(),
 currYear = date.getFullYear(),
 currMonth = date.getMonth();
 currDate = date.getDate()
-// console.log(currYear,currMonth)
 
 const months = ["January", "February", "March", "April", "May", "June", "July",
               "August", "September", "October", "November", "December"];
@@ -29,9 +28,7 @@ const getCalendar = async(habbit_id)=>{
     // Rendering the 7 days of the Calender of current week starting from Sunday to Saturday
     
     for (let i = firstWeekDate; i <= firstWeekDate+6; i++) {
-        // console.log(date.getDate(), new Date().getMonth(), new Date().getFullYear())
-        // let isToday = i === date.getDate() && currMonth === new Date().getMonth() 
-        //             && currYear === new Date().getFullYear() ? "active" : "";
+
         let x = i
         if(i<1){
             x = lastDateofLastMonth+i
@@ -50,12 +47,10 @@ const getCalendar = async(habbit_id)=>{
             stat = 2
             srcURl = images[2]
         }
-        // console.log("srcURL",srcURl)
+
         liTag += `<li class="list_item"> <span id="${id}">${x}</span>
         <div>
-    
         <img onclick="fun(this)" src="${srcURl}" date=${id} stat=${stat} class="status-icon" height="20px" width="20px" alt="cross"/>
-    
         <div>
         </li>`;
     }
@@ -63,21 +58,19 @@ const getCalendar = async(habbit_id)=>{
 }
 
 const renderCalendar = async () => {
-    // console.log(date)
-    console.log(statCountTag)
     currentDate.innerText = `${months[currMonth]} ${currYear}`;
     // console.log("daysTag",daysTag);
     for(let i=0;i<daysTag.length;i++){
         var habitId = daysTag[i].closest(".habbit-div").getAttribute('data_id');
         let statusCount = await getCompletedStatCount(habitId);
-        console.log('statusCount', statusCount);
         let liTag = await getCalendar(habitId);
         daysTag[i].innerHTML = liTag;
         statCountTag[i].innerHTML= statusCount;
     }
 }
+
 renderCalendar();
-console.log(prevNextIcon)
+
 prevNextIcon.forEach(icon => {
     icon.addEventListener("click", () => {
 
@@ -90,29 +83,37 @@ prevNextIcon.forEach(icon => {
     });
 });
 
-let dailyStatus = 0
-function fun(e){
 
+async function fun(e){
+    console.log("e",e)
     habbitDivElm = e.parentNode.parentNode.parentNode.parentNode
     habbit_id = habbitDivElm.getAttribute("data_id")
     date = e.getAttribute("date")
     icon = e.getAttribute("src")
     stat = e.getAttribute("stat")
-    // console.log("ew",ulElm.getAttribute("data_id"), date)
-    index = images.indexOf(icon)
-    e.setAttribute("src",images[(index+1)%(images.length)])
-    console.log(date,habbit_id,stat)
-    window.location.href = `/habbits/status/toggle?date=${date}&habbit_id=${habbit_id}&stat=${(stat+1)%3}`
+    stat = (Number(stat)+1)%3
+    console.log("stat", stat)
+
+    data = {"date":date, "habbit_id":habbit_id, "stat":stat}
+    var resp = await fetch("/habbits/status/toggle",{
+        method:"POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }); 
+    if(resp.ok){
+        res = await resp.json()
+        console.log("res----",res,e)
+        e.setAttribute("src", images[stat])
+        e.setAttribute("stat", stat)
+    }
 }
-
-
 
 async function getAllDatesOfStatusForHabit(habbit_id) {
     //get request , habit id , return all dates --> status
-
     var resp = await fetch(`http://localhost:5000/habbits/status/${habbit_id}`);
     var data = await resp.json();
-    // console.log(data)
     return data.data;
 
 }
@@ -120,7 +121,6 @@ async function getAllDatesOfStatusForHabit(habbit_id) {
 async function getCompletedStatCount(habbit_id){
     var resp = await fetch(`http://localhost:5000/habbits/status/count/${habbit_id}`);
     var data = await resp.json();
-    console.log(data)
     return data.data;
 }
- 
+

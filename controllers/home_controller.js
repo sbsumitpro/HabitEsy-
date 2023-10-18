@@ -12,7 +12,7 @@ module.exports.home= async(req,res)=>{
 
 module.exports.create = async(req,res)=>{
     try{
-        console.log("----t",req.body)
+        // console.log("----t",req.body)
         const habbit = await Habbit.create({
             title:req.body.name,
             time:req.body.time,
@@ -26,8 +26,9 @@ module.exports.create = async(req,res)=>{
 
 module.exports.destroyHabbit = async(req,res)=>{
     try{
-        console.log(req.query)
+        // console.log(req.query)
         await Habbit.deleteOne({_id:req.query.id});
+        await habbitStatuses.deleteMany({habbit:req.query.id});
         console.log("Habbit deleted successfully");
         res.redirect("back");
     }catch(error){
@@ -38,27 +39,30 @@ module.exports.destroyHabbit = async(req,res)=>{
 
 module.exports.toggleStatus = async(req,res)=>{
     try{
-        console.log("sdsd");
-        console.log(req.query)
-        let habbitStatus = await habbitStatuses.findOne({habbit:req.query.habbit_id, date:req.query.date})
+        const {date, habbit_id, stat} = req.body
+        if(stat==0){
+            await habbitStatuses.deleteOne({habbit:habbit_id, date:date});
+            return res.status(200).json({
+                message:"success",
+                updated:true
+            })
+        }
+        let habbitStatus = await habbitStatuses.findOne({habbit:habbit_id, date:date})
         if (habbitStatus){
-            habbitStatus.stat = req.query.stat;
+            habbitStatus.stat = stat;
             habbitStatus.save();
 
         }else{
             await habbitStatuses.create({
-                habbit:new ObjectId(req.query.habbit_id),
-                date:req.query.date,
-                stat:req.query.stat
-        
+                habbit:new ObjectId(habbit_id),
+                date:date,
+                stat:stat
              })
         }
-        // return res.status(200).json({
-        //     message:"success",
-        //     updated:true
-        // })
-        return res.redirect("back");
-
+        return res.status(200).json({
+            message:"success",
+            updated:true
+        })
 
     }catch(err){
         console.log("----Error in toggling the status");
@@ -68,9 +72,7 @@ module.exports.toggleStatus = async(req,res)=>{
 module.exports.getAllStatus = async(req,res)=>{
     try{
         const {habbit_id} = req.params;
-        // habbit_id = ObjectId(habbit_id)
         const data = await habbitStatuses.find({habbit:habbit_id}).select(["date","stat","-_id"])
-        // console.log("datatype of date",typeof(data[0].date))
         resp = {}
         for (i=0; i<data.length;i++){
             let obj = data[i]
@@ -86,9 +88,7 @@ module.exports.getAllStatus = async(req,res)=>{
 module.exports.getStatCount = async(req,res)=>{
     try{
         const {habbit_id} = req.params;
-        // habbit_id = ObjectId(habbit_id)
         const data = await habbitStatuses.find({habbit:habbit_id, stat:1});
-        console.log(data.length)
         return res.status(200).json({success:true, data:data.length})
     }catch (err){
         console.log("Error in getting completed status count", err)
