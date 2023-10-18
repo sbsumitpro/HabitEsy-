@@ -47,10 +47,13 @@ const getCalendar = async(habbit_id)=>{
             stat = 2
             srcURl = images[2]
         }
+        let isToday = i === new Date().getDate() && currMonth === new Date().getMonth() 
+                     && currYear === new Date().getFullYear() ? "active" : "";
 
-        liTag += `<li class="list_item"> <span id="${id}">${x}</span>
+        liTag += `<li class="list_item ${isToday}"> 
+            <span id="${id}">${x}</span>
         <div>
-        <img onclick="fun(this)" src="${srcURl}" date=${id} stat=${stat} class="status-icon" height="20px" width="20px" alt="cross"/>
+            <img onclick="fun(this)" src="${srcURl}" date=${id} stat=${stat} class="status-icon" height="20px" width="20px" alt="cross"/>
         <div>
         </li>`;
     }

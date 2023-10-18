@@ -104,15 +104,20 @@ header .current-date{
   height: 40px;
   width: 40px;
   z-index: -1;
-  border-radius: 50%;
+  border-radius: 20%;
   transform: translate(-50%, -50%);
 }
-/* .days li.active::before{
-  background: #9B59B6;
-} */
-/* .days li:not(.active):hover::before{
+.days li.active::before{
+  background: hsl(0, 33%, 77%);
+  /* transform: scale(2); */
+  display: flex;
+  flex-direction: column;
+  width: 50px;
+  height: 70px;
+}
+.days li:not(.active):hover::before{
   background: #f2f2f2;
-} */
+}
 
 .page-heading{
   color:white;
