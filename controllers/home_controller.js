@@ -6,13 +6,13 @@ const ObjectId = mongoose.Types.ObjectId;
 module.exports.home= async(req,res)=>{
     habbits = await Habbit.find();
     return res.render("index",{
-        title:"Home",
+        title:"Habitesy",
         habbits:habbits
 })}
 
 module.exports.create = async(req,res)=>{
     try{
-        // console.log("----t",req.body)
+        // adding new habbit to database
         const habbit = await Habbit.create({
             title:req.body.name,
             time:req.body.time,
@@ -26,8 +26,9 @@ module.exports.create = async(req,res)=>{
 
 module.exports.destroyHabbit = async(req,res)=>{
     try{
-        // console.log(req.query)
+        // Deleting the selected habbit from habbit collection
         await Habbit.deleteOne({_id:req.query.id});
+        // Deleting all the status associated with a habbit
         await habbitStatuses.deleteMany({habbit:req.query.id});
         console.log("Habbit deleted successfully");
         res.redirect("back");
@@ -40,6 +41,7 @@ module.exports.destroyHabbit = async(req,res)=>{
 module.exports.toggleStatus = async(req,res)=>{
     try{
         const {date, habbit_id, stat} = req.body
+        // if the status is the default one then we are not storing that data in the database, hence all those data is deleted for memory optimization
         if(stat==0){
             await habbitStatuses.deleteOne({habbit:habbit_id, date:date});
             return res.status(200).json({
@@ -47,6 +49,7 @@ module.exports.toggleStatus = async(req,res)=>{
                 updated:true
             })
         }
+        // Creating/ Updating the status value (0,1,2) in the database 
         let habbitStatus = await habbitStatuses.findOne({habbit:habbit_id, date:date})
         if (habbitStatus){
             habbitStatus.stat = stat;
@@ -68,7 +71,7 @@ module.exports.toggleStatus = async(req,res)=>{
         console.log("----Error in toggling the status");
     }
 }
-
+// This is for getting all the status details associated with  date and habbit to render the homepage
 module.exports.getAllStatus = async(req,res)=>{
     try{
         const {habbit_id} = req.params;
@@ -85,6 +88,7 @@ module.exports.getAllStatus = async(req,res)=>{
     }
 }
 
+// This is used to get the completion streak count and render it in the homepage
 module.exports.getStatCount = async(req,res)=>{
     try{
         const {habbit_id} = req.params;

@@ -86,7 +86,7 @@ prevNextIcon.forEach(icon => {
     });
 });
 
-
+// This is handling the ajax call after we click the toggle button and the rendeing the new status accordingly
 async function fun(e){
     console.log("e",e)
     habbitDivElm = e.parentNode.parentNode.parentNode.parentNode
@@ -98,7 +98,7 @@ async function fun(e){
     console.log("stat", stat)
 
     data = {"date":date, "habbit_id":habbit_id, "stat":stat}
-    var resp = await fetch("/habbits/status/toggle",{
+    var resp = await fetch("/habbits/status/toggle",{      // Making post call to send data to server
         method:"POST",
         headers: {
             'Content-Type': 'application/json'
@@ -106,7 +106,7 @@ async function fun(e){
         body: JSON.stringify(data)
     }); 
     if(resp.ok){
-        res = await resp.json()
+        res = await resp.json()                      // Fetching the data from the server and then based on that changing the UI for status
         console.log("res----",res,e)
         e.setAttribute("src", images[stat])
         e.setAttribute("stat", stat)
