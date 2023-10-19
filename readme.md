@@ -1,6 +1,6 @@
 
 # Habit Tracker App using Nodejs
-This is a intermediate level project where any user can track the daily status of no of habbits. This is quite useful in our life to become disciplined. 
+This is a intermediate level project where any user can track the daily status of no of habbits. This is quite useful in our life to become disciplined. Here the user first need to signup and then he/she can sign in and establish the identity and start using the web-app.
 
 
 ## Tech Stack
