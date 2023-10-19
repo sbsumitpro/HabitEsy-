@@ -32,6 +32,11 @@ This is a intermediate level project where any user can track the daily status o
 To run this project, you will need to add the following environment variables to your .env file
 
 `MONGO_URL`
+`SENDER_EMAIL`
+`EMAIL_KEY`
+`GOOGLE_CLIENT_ID`
+`GOOGLE_CLIENT_SECRET`
+`GOOGLE_CALLBACKURL`
 
 
 
