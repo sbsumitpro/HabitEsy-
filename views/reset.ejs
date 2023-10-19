@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="/css/styles_signin.css">
+
+<section class="vh-100" style="background-color: #508bfc;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+                
+              <h3 class="mb-5">Reset your Password</h3>
+              <%if(locals.user){%>
+                <form action="/users/update-password/?id=<%=locals.user.id%>" method="post">
+
+                    <div class="form-outline mb-4">
+                        <input type="password" name="old_password" id="typePasswordX-2" class="form-control form-control-lg" placeholder="Old Password"/>
+                    </div>
+        
+                    <div class="form-outline mb-4">
+                      <input type="password" name="new_password" id="typePasswordX-2" class="form-control form-control-lg" placeholder="New Password"/>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                      <input type="password" name="confirm_new_password" id="typePasswordX-2" class="form-control form-control-lg" placeholder="Confirm New Password"/>
+                    </div>
+
+ 
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+
+                </form>
+                <%}else{%>
+                    <div class="form-outline mb-4">
+                        <h2>Please sing-out and try again!</h2>
+                    </div>
+                <%}%>
+  
+              <hr class="my-4">
+  
+
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+

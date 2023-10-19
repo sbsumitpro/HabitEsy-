@@ -37,7 +37,6 @@ const getCalendar = async(habbit_id)=>{
         }
         id = new Date(currYear, currMonth, x).toLocaleDateString();
         
-        // console.log("getHabbitStatus",x, getHabbitStatus, typeof(getHabbitStatus[id]), id) 
         let stat = 0
         srcURl = images[0]
         if (getHabbitStatus[id]==1){
@@ -62,7 +61,7 @@ const getCalendar = async(habbit_id)=>{
 
 const renderCalendar = async () => {
     currentDate.innerText = `${months[currMonth]} ${currYear}`;
-    // console.log("daysTag",daysTag);
+
     for(let i=0;i<daysTag.length;i++){
         var habitId = daysTag[i].closest(".habbit-div").getAttribute('data_id');
         let statusCount = await getCompletedStatCount(habitId);
@@ -72,7 +71,9 @@ const renderCalendar = async () => {
     }
 }
 
-renderCalendar();
+if(currentDate){
+    renderCalendar();
+}
 
 prevNextIcon.forEach(icon => {
     icon.addEventListener("click", () => {
@@ -88,14 +89,13 @@ prevNextIcon.forEach(icon => {
 
 // This is handling the ajax call after we click the toggle button and the rendeing the new status accordingly
 async function fun(e){
-    console.log("e",e)
     habbitDivElm = e.parentNode.parentNode.parentNode.parentNode
     habbit_id = habbitDivElm.getAttribute("data_id")
+    habbit_index=habbitDivElm.getAttribute("id")
     date = e.getAttribute("date")
     icon = e.getAttribute("src")
     stat = e.getAttribute("stat")
     stat = (Number(stat)+1)%3
-    console.log("stat", stat)
 
     data = {"date":date, "habbit_id":habbit_id, "stat":stat}
     var resp = await fetch("/habbits/status/toggle",{      // Making post call to send data to server
@@ -107,22 +107,22 @@ async function fun(e){
     }); 
     if(resp.ok){
         res = await resp.json()                      // Fetching the data from the server and then based on that changing the UI for status
-        console.log("res----",res,e)
         e.setAttribute("src", images[stat])
         e.setAttribute("stat", stat)
+        statCountTag[habbit_index].innerHTML = await getCompletedStatCount(habbit_id)
     }
 }
 
 async function getAllDatesOfStatusForHabit(habbit_id) {
     //get request , habit id , return all dates --> status
-    var resp = await fetch(`http://localhost:5000/habbits/status/${habbit_id}`);
+    var resp = await fetch(`http://localhost:7000/habbits/status/${habbit_id}`);
     var data = await resp.json();
     return data.data;
 
 }
 
 async function getCompletedStatCount(habbit_id){
-    var resp = await fetch(`http://localhost:5000/habbits/status/count/${habbit_id}`);
+    var resp = await fetch(`http://localhost:7000/habbits/status/count/${habbit_id}`);
     var data = await resp.json();
     return data.data;
 }

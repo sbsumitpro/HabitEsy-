@@ -5,21 +5,16 @@ const habbitSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User"
+    },
     time:{
         type:String,
     },
     goal:{
         type:Number,
         required:true
-    },
-    stats:{
-        date:Date,
-        status:{
-            type:String,
-            required:true,
-            enum:["Done","NotDone","None"],
-            default:"None"
-        }
     }
 })
 
