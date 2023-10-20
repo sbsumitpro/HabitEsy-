@@ -1,19 +1,16 @@
 
 <div class="div-heading">
-    <h1 class="page-heading" ">
-        <img src="https://cdn-icons-png.flaticon.com/128/3588/3588658.png" height="60px" alt=""> Habitesy 
-    </h1>
-    <ul>
-        <%if(locals.user){%>
-            <li class="list"><a class="text-muted" href="/users/sign-out">Sign Out</a></li>
-            <li class="list"><a class="text-muted" href="/users/reset">Reset Password</a></li>
+    <div class="page-heading" ">
+        <img src="https://cdn-icons-png.flaticon.com/128/3588/3588658.png" height="40px" alt=""> 
+        <h1>Habitesy</h1>
+    </div>
+    <%if(locals.user){%>
+        <span class="welcom"> Welcome <%=user.name%></span>
+        <ul>
+            <li class="list"><a href="/users/sign-out">Sign Out</a></li>
+            <li class="list"><a href="/users/reset">Reset Password</a></li>
         
-        <%}else{%>
-        
-            <li class="list"><a href="/users/sign-in">Sign In</a></li>
-            <li class="list"><a href="/users/sign-up">Sign Up</a></li>
-        
-            </div>
+        </ul>
         <%}%>
-    </ul>
+
 </div>

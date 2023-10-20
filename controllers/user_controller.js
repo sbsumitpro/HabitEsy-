@@ -63,8 +63,7 @@ module.exports.createSession =async(req,res)=>{
         method:"POST"
     })
     .then(res=>res.json())
-    // console.log(captchaVerified.success)
-    console.log("----",req.route.path)
+
     //If the captcha matches, then only allow the user to sign in else redirect
     if(captchaVerified.success===true || req.route.path=="/auth/google/callback"){
         req.flash("success","Signed in Successfully")
@@ -82,7 +81,6 @@ module.exports.destroySession  =(req,res)=>{
             return;
         }
         req.flash("success","Signed out!")
-        // console.log("Logged out");
         return res.redirect("/");
     })
 }
@@ -94,7 +92,6 @@ module.exports.updatePassword =async(req,res)=>{
         if(isMatched){
             if(req.body.new_password != req.body.confirm_new_password){
                 req.flash("error","New Password and confirm new password doesn't match!")
-                // console.log("New Password and confirm new password doesn't match!");
                 return res.redirect("back")
             }
             const salt = await bcrypt.genSalt(10);
@@ -105,7 +102,6 @@ module.exports.updatePassword =async(req,res)=>{
             return res.redirect("/")
         }else{
             req.flash("error","Youe old password is not correct")
-            // console.log("You old passwor is not correct")
             return res.redirect("back");
         }
         

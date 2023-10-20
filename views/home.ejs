@@ -4,17 +4,26 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
 <link rel="stylesheet" href="/css/styles.css">
 
-<section class="vh-100">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-6 text-black">
-       <%if(locals.user){%>
-           <%- include('index') -%>
-        <%}else{%>
-          <img class="home-img" src="/images/running.jpeg" alt="running">
-        <%}%>
-        </div>
 
+  <%if(locals.user){%>
+    <section class="vh-100">
+      <div class="container-fluid ">
+        <div class="row">
+          <div class="col-sm-6 text-black">
+
+             <%- include('index') -%>
+
+          </div>
+  
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+ <%}else{%>
+            <!-- <img class="home-img" src="/images/running.jpeg" alt="running"> -->
+            <div class="card-home">
+              <h2>Track Your Way to Success: Achieve Your Goals One Habit at a Time with Habitesy!</h2>
+              <button><a href="/users/sign-in">Sign In</a></button>
+              <button><a href="/users/sign-up">Sign Up</a></button>
+            </div>
+ <%}%>
