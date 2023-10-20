@@ -124,6 +124,7 @@ header .current-date{
   align-items: center;
   background-color: #0A4D68;
   margin-bottom:20px ;
+  z-index: 1;
 }
 
 .div-heading ul{
