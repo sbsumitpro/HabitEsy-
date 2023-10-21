@@ -4,6 +4,7 @@ currentDate = document.querySelector(".current-date"),
 prevNextIcon = document.querySelectorAll(".icons span");
 const images = ["https://cdn-icons-png.flaticon.com/128/11512/11512309.png","https://cdn-icons-png.flaticon.com/128/190/190411.png","https://cdn-icons-png.flaticon.com/128/1828/1828665.png"]
 
+console.log("hello currentDate,daysTag ", currentDate, daysTag)
 let date = new Date(),
 currYear = date.getFullYear(),
 currMonth = date.getMonth();
