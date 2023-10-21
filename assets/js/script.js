@@ -116,14 +116,14 @@ async function fun(e){
 
 async function getAllDatesOfStatusForHabit(habbit_id) {
     //get request , habit id , return all dates --> status
-    var resp = await fetch(`http://localhost:7000/habbits/status/${habbit_id}`);
+    var resp = await fetch(`https://habitesy.onrender.com/habbits/status/${habbit_id}`);
     var data = await resp.json();
     return data.data;
 
 }
 
 async function getCompletedStatCount(habbit_id){
-    var resp = await fetch(`http://localhost:7000/habbits/status/count/${habbit_id}`);
+    var resp = await fetch(`https://habitesy.onrender.com/habbits/status/count/${habbit_id}`);
     var data = await resp.json();
     return data.data;
 }
