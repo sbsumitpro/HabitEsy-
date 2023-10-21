@@ -8,6 +8,7 @@ let date = new Date(),
 currYear = date.getFullYear(),
 currMonth = date.getMonth();
 currDate = date.getDate()
+// console.log("---",DOMAIN)
 
 const months = ["January", "February", "March", "April", "May", "June", "July",
               "August", "September", "October", "November", "December"];
@@ -115,14 +116,14 @@ async function fun(e){
 
 async function getAllDatesOfStatusForHabit(habbit_id) {
     //get request , habit id , return all dates --> status
-    var resp = await fetch(`https://habitesy.onrender.com/habbits/status/${habbit_id}`);
+    var resp = await fetch(`${DOMAIN}habbits/status/${habbit_id}`);
     var data = await resp.json();
     return data.data;
 
 }
 
 async function getCompletedStatCount(habbit_id){
-    var resp = await fetch(`https://habitesy.onrender.com/habbits/status/count/${habbit_id}`);
+    var resp = await fetch(`${DOMAIN}habbits/status/count/${habbit_id}`);
     var data = await resp.json();
     return data.data;
 }

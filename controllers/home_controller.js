@@ -1,18 +1,20 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 const Habbit = require("../models/habbit");
 const habbitStatuses = require("../models/habbit_status");
 const ObjectId = mongoose.Types.ObjectId;
 
 module.exports.home= async(req,res)=>{
+
     if(req.user){
         habbits = await Habbit.find({user:req.user._id});
         return res.render("home",{
             title:"Habitesy",
-            habbits:habbits
+            habbits:habbits,
+            domain:process.env.FETCH_DOMAIN
     })}else{
-        return res.render("home",{title:"Habitesy"})
+        return res.render("home",{title:"Habitesy",domain:process.env.FETCH_DOMAIN})
     }
-
     }
 
 module.exports.create = async(req,res)=>{
